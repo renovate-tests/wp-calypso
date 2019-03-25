@@ -33,6 +33,11 @@ const CloneReadyComponent = props => (
 const CloneCloningComponent = props => (
 	<AsyncLoad require="signup/steps/clone-cloning" placeholder={ null } { ...props } />
 );
+
+const ConfirmImportComponent = props => (
+	<AsyncLoad require="signup/steps/confirm-import" placeholder={ null } { ...props } />
+);
+
 const CredsConfirmComponent = props => (
 	<AsyncLoad require="signup/steps/creds-confirm" placeholder={ null } { ...props } />
 );
@@ -131,6 +136,7 @@ export default {
 	'clone-jetpack': CloneJetpackComponent,
 	'clone-ready': CloneReadyComponent,
 	'clone-cloning': CloneCloningComponent,
+	'confirm-import': ConfirmImportComponent,
 	'creds-confirm': CredsConfirmComponent,
 	'creds-complete': CredsCompleteComponent,
 	'creds-permission': CredsPermissionComponent,
