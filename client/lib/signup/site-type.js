@@ -75,18 +75,6 @@ export function getAllSiteTypes() {
 		},
 		{
 			id: 4,
-			slug: 'education',
-			label: i18n.translate( 'Education' ),
-			description: i18n.translate( 'Share school projects and class info.' ),
-			theme: 'pub/twentyfifteen',
-			designType: 'blog',
-			siteTitleLabel: i18n.translate( 'What is the name of your site?' ),
-			siteTitlePlaceholder: i18n.translate( 'E.g., My class' ),
-			siteTopicHeader: i18n.translate( 'What is your website about?' ),
-			siteTopicLabel: i18n.translate( 'What will your site be about?' ),
-		},
-		{
-			id: 5,
 			slug: 'online-store',
 			label: i18n.translate( 'Online store' ),
 			description: i18n.translate( 'Sell your collection of products online.' ),
