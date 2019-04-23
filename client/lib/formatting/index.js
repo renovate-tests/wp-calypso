@@ -2,7 +2,7 @@
 /**
  * External Dependencies
  */
-import { trim } from 'lodash';
+import { last, initial, isArray, isString, trim } from 'lodash';
 import stripTags from 'striptags';
 
 /**
@@ -54,6 +54,33 @@ export function stripHTML( string ) {
  * @return {string}             the widow-prevented string
  */
 export function preventWidows( text, wordsToKeep = 2 ) {
+	// Copy containing react components will be an array, in cases where the last chunk is a string
+	// we can try to apply similar widow prevention logic to cases where the input is just a simple string.
+	if ( isArray( text ) ) {
+		const lastChunk = last( text );
+
+		if ( ! isString( lastChunk ) ) {
+			return text;
+		}
+
+		const lastChunkWords = lastChunk.match( /\S+/g );
+
+		if ( ! lastChunkWords || lastChunkWords.length === 1 ) {
+			return text;
+		}
+
+		const whitespace = lastChunk.substring( 0, lastChunk.search( /\S/ ) );
+
+		if ( lastChunkWords.length <= wordsToKeep ) {
+			return [ ...initial( text ), whitespace + lastChunkWords.join( '\xA0' ) ];
+		}
+
+		const endWords = lastChunkWords.splice( -wordsToKeep, wordsToKeep );
+		const newLastChunk = whitespace + lastChunkWords.join( ' ' ) + ' ' + endWords.join( '\xA0' );
+
+		return [ ...initial( text ), newLastChunk ];
+	}
+
 	if ( typeof text !== 'string' ) {
 		return text;
 	}
@@ -168,7 +195,7 @@ export function wpautop( pee ) {
 	pee = pee.replace( new RegExp( '(</?(?:' + blocklist + ')[^>]*>)\\s*<br />', 'gi' ), '$1' );
 	pee = pee.replace( /<br \/>(\s*<\/?(?:p|li|div|dl|dd|dt|th|pre|td|ul|ol)>)/gi, '$1' );
 	pee = pee.replace(
-		/(?:<p>|<br ?\/?>)*\s*\[caption([^\[]+)\[\/caption\]\s*(?:<\/p>|<br ?\/?>)*/gi,
+		/(?:<p>|<br ?\/?>)*\s*\[caption([^[]+)\[\/caption\]\s*(?:<\/p>|<br ?\/?>)*/gi,
 		'[caption$1[/caption]'
 	);
 
@@ -245,7 +272,7 @@ export function removep( html ) {
 	// Fix some block element newline issues
 	html = html.replace( /\s*<div/g, '\n<div' );
 	html = html.replace( /<\/div>\s*/g, '</div>\n' );
-	html = html.replace( /\s*\[caption([^\[]+)\[\/caption\]\s*/gi, '\n\n[caption$1[/caption]\n\n' );
+	html = html.replace( /\s*\[caption([^[]+)\[\/caption\]\s*/gi, '\n\n[caption$1[/caption]\n\n' );
 	html = html.replace( /caption\]\n\n+\[caption/g, 'caption]\n\n[caption' );
 
 	html = html.replace(
