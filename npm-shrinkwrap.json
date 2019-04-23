@@ -135,7 +135,8 @@
 				},
 				"autoprefixer": {
 					"version": "9.4.4",
-					"resolved": false,
+					"resolved": "https://registry.npmjs.org/autoprefixer/-/autoprefixer-9.4.4.tgz",
+					"integrity": "sha512-7tpjBadJyHKf+gOJEmKhZIksWxdZCSrnKbbTJNsw+/zX9+f//DLELRQPWjjjVoDbbWlCuNRkN7RfmZwDVgWMLw==",
 					"dev": true,
 					"requires": {
 						"browserslist": "^4.3.7",
@@ -20195,9 +20196,9 @@
 			"integrity": "sha1-9PrTM0R7wLB9TcjpIJ2POaisd+g="
 		},
 		"tinymce": {
-			"version": "4.8.5",
-			"resolved": "https://registry.npmjs.org/tinymce/-/tinymce-4.8.5.tgz",
-			"integrity": "sha512-1V6+PxP5Kp8H/Kuf+EOe6vyrtj1Dlj98q33DgiKGoGPTmbcQaVZWiT+lhqj8ICXKVLV3YxAieOJyJXai4SLHQg=="
+			"version": "5.0.4",
+			"resolved": "https://registry.npmjs.org/tinymce/-/tinymce-5.0.4.tgz",
+			"integrity": "sha512-H5ogFjgpYSCSgHMMJtR1nPfSICEPtuMW6d/0jR/p4R2eajO0aY8e04Exq6C77JQy6Do3NkJlIZNl1D1ejCn+Jw=="
 		},
 		"title-case": {
 			"version": "2.1.1",
