@@ -22,5 +22,15 @@
 			"*": [ "*", "client/*", "server/*" ]
 		}
 	},
-	"include": [ "client", "server" ]
+	"include": [ "client", "server" ],
+	"exclude": [
+		"node_modules",
+		"**/node_modules/*",
+		"build",
+		"**/build/*",
+		"**/build-module/*",
+		"**/build-style/*",
+		"server/bundlers/assets-*.json",
+		"server/devdocs/search-index.js"
+	]
 }
