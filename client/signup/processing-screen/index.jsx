@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 /**
  * Internal dependencies
  */
+import { preventWidows } from 'lib/formatting';
 import { showOAuth2Layout } from 'state/ui/oauth2-clients/selectors';
 import config from 'config';
 import { getCurrentUser } from 'state/current-user/selectors';
@@ -182,7 +183,7 @@ export class SignupProcessingScreen extends Component {
 				{ this.renderFloaties() }
 
 				<div className="signup-processing__content">
-					<p className="signup-process-screen__title">{ this.getTitle() }</p>
+					<p className="signup-process-screen__title">{ preventWidows( this.getTitle() ) }</p>
 				</div>
 				<div className="signup-processing-screen__loader">
 					{ this.props.translate( 'Loading…' ) }
