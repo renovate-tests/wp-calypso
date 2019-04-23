@@ -42,8 +42,6 @@ import CancelDomainPage from '../lib/pages/cancel-domain-page';
 import GSuiteUpsellPage from '../lib/pages/gsuite-upsell-page';
 import ThemesPage from '../lib/pages/themes-page';
 import ThemeDetailPage from '../lib/pages/theme-detail-page';
-import DesignTypePage from '../lib/pages/signup/design-type-page';
-import SettingsPage from '../lib/pages/settings-page';
 import ImportPage from '../lib/pages/import-page';
 
 import FindADomainComponent from '../lib/components/find-a-domain-component.js';
@@ -1268,100 +1266,6 @@ describe( `[${ host }] Sign Up  (${ screenSize }, ${ locale })`, function() {
 
 		step( 'Can delete the plan', async function() {
 			return await new DeletePlanFlow( driver ).deletePlan( 'theme' );
-		} );
-
-		after( 'Can delete our newly created account', async function() {
-			return await new DeleteAccountFlow( driver ).deleteAccount( blogName );
-		} );
-	} );
-
-	describe( 'Sign up for free subdomain site @parallel', function() {
-		const blogName = dataHelper.getNewBlogName();
-		const expectedDomainName = `${ blogName }.art.blog`;
-
-		before( async function() {
-			if ( process.env.SKIP_DOMAIN_TESTS === 'true' ) {
-				await SlackNotifier.warn(
-					'Domains tests are currently disabled as SKIP_DOMAIN_TESTS is set to true',
-					{ suppressDuplicateMessages: true }
-				);
-				return this.skip();
-			}
-		} );
-
-		before( async function() {
-			await driverManager.ensureNotLoggedIn( driver );
-		} );
-
-		step( 'Can enter the subdomains flow and select design type', async function() {
-			await StartPage.Visit(
-				driver,
-				StartPage.getStartURL( {
-					culture: locale,
-					flow: 'subdomain',
-					query: 'vertical=art',
-				} )
-			);
-			const designTypePage = await DesignTypePage.Expect( driver );
-			return await designTypePage.selectFirstDesignType();
-		} );
-
-		step(
-			'Can see the choose a theme page as the starting page, and select the first theme',
-			async function() {
-				const chooseAThemePage = await ChooseAThemePage.Expect( driver );
-				return await chooseAThemePage.selectFirstTheme();
-			}
-		);
-
-		step(
-			'Can then see the domains page, and Can search for a blog name, can see and select a free .art.blog address in the results',
-			async function() {
-				const findADomainComponent = await FindADomainComponent.Expect( driver );
-				await findADomainComponent.searchForBlogNameAndWaitForResults( blogName );
-				await findADomainComponent.checkAndRetryForFreeBlogAddresses(
-					expectedDomainName,
-					blogName
-				);
-				const actualAddress = await findADomainComponent.freeBlogAddress();
-				assert(
-					expectedDomainName.indexOf( actualAddress ) > -1,
-					`The displayed blog address: '${ actualAddress }' was not the expected addresses: '${ expectedDomainName }'`
-				);
-				return await findADomainComponent.selectFreeAddress();
-			}
-		);
-
-		step( 'Can then see the plans page and pick the free plan', async function() {
-			const pickAPlanPage = await PickAPlanPage.Expect( driver );
-			return await pickAPlanPage.selectFreePlan();
-		} );
-
-		step( 'Can then enter account details and continue', async function() {
-			const emailAddress = dataHelper.getEmailAddress( blogName, signupInboxId );
-			const createYourAccountPage = await CreateYourAccountPage.Expect( driver );
-			return await createYourAccountPage.enterAccountDetailsAndSubmit(
-				emailAddress,
-				blogName,
-				passwordForTestAccounts
-			);
-		} );
-
-		step(
-			'Can then see the sign up processing page which will finish automatically move along',
-			async function() {
-				return await new SignUpStep( driver ).continueAlong( blogName, passwordForTestAccounts );
-			}
-		);
-
-		sharedSteps.canSeeTheOnboardingChecklist();
-
-		step( 'Can delete site', async function() {
-			const sidebarComponent = await SideBarComponent.Expect( driver );
-			await sidebarComponent.ensureSidebarMenuVisible();
-			await sidebarComponent.selectSettings();
-			const settingsPage = await SettingsPage.Expect( driver );
-			return await settingsPage.deleteSite( expectedDomainName );
 		} );
 
 		after( 'Can delete our newly created account', async function() {
