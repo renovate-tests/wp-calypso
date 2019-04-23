@@ -3,7 +3,6 @@
 /**
  * External dependencies
  */
-
 import { createElement } from 'react';
 import page from 'page';
 import { translate } from 'i18n-calypso';
@@ -11,6 +10,7 @@ import { translate } from 'i18n-calypso';
 /**
  * Internal Dependencies
  */
+import MarketingTools from './tools';
 import notices from 'notices';
 import Sharing from './main';
 import SharingButtons from './buttons/buttons';
@@ -101,6 +101,12 @@ export const buttons = ( context, next ) => {
 	}
 
 	context.contentComponent = createElement( SharingButtons );
+
+	next();
+};
+
+export const marketingTools = ( context, next ) => {
+	context.contentComponent = createElement( MarketingTools );
 
 	next();
 };
