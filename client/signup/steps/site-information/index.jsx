@@ -261,7 +261,6 @@ export default connect(
 						stepName: ownProps.stepName,
 						flowName: ownProps.flowName,
 					},
-					[],
 					submitData
 				);
 				ownProps.goToNextStep( ownProps.flowName );

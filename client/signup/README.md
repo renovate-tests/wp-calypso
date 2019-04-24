@@ -73,7 +73,6 @@ handleSubmit: function( event ) {
 `submitSignupStep` takes the following parameters:
 
 - a `step` object with the property `stepName`, the name of the step you're submitting.
-- (optional) `errors`, an array of errors that will be attached to the step. If provided, the status of the step will be set to `invalid` in the Progress Store.
 - (optional) `providedDependencies`, an object describing the data added by the step to the Dependency Store. Use this only for data that does not come from API requests.
 - (optional) `processingMessage`, a message that is displayed at the end of the flow while the user waits for the apiRequestFunction to process. For example, "Creating your account" or "Setting up your site", depending on what your step does.
 - (optional) `wasSkipped`, a flag indicating that an optional step was skipped when it is set to true.

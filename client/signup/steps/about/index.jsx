@@ -313,7 +313,6 @@ class AboutStep extends Component {
 				processingMessage: translate( 'Collecting your information' ),
 				stepName: stepName,
 			},
-			[],
 			{
 				themeSlugWithRepo: themeRepo,
 				siteTitle: siteTitleValue,

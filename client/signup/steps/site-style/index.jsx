@@ -167,7 +167,6 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 				processingMessage: i18n.translate( 'Collecting your information' ),
 				stepName,
 			},
-			[],
 			{
 				siteStyle,
 				themeSlugWithRepo,

@@ -47,7 +47,6 @@ class CredsPermissionStep extends Component {
 				processingMessage: this.props.translate( 'Setting up your site' ),
 				stepName: this.props.stepName,
 			},
-			undefined,
 			{ rewindconfig: true }
 		);
 
